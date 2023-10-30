@@ -2,12 +2,14 @@ package com.showroom_management;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import com.vehicle.ParseAndValidateDate;
 import com.vehicle.ValidateColour;
 import com.vehicle.Vehicle;
+import com.color_enum.Color;
 import com.custom_ordering.VehiclePriceComparator;
 import com.exceptions.InvalidInputException;
 import com.utils.ShowroomUtils;
@@ -70,7 +72,13 @@ public class Showroom_Management {
 					System.out.println("Vehicle Details Removed...");
 					break;
 				case 7:
-					
+					System.out.println("Enter Color");
+					Color c=Color.valueOf(ValidateColour.validateCol(sc.next().toLowerCase()));
+					Iterator<Vehicle> vehicleItr=vehArr.iterator();
+					while(vehicleItr.hasNext()) {
+						if(vehicleItr.next().getColor()==c)
+							vehicleItr.remove();
+					}
 					break;
 				case 8:
 					Collections.sort(vehArr);
@@ -106,6 +114,7 @@ public class Showroom_Management {
 				}
 				
 				} catch (Exception e) {
+					sc.hasNextLine();
 					System.out.println(e);
 				}
 			}
